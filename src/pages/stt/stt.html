@@ -1,0 +1,24 @@
+<ion-header>
+  <ion-navbar color="danger">
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Speech to Text</ion-title>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content padding>
+  <button ion-button (click)="isSpeechSupported()">Is Speech Supported?</button>
+  <button ion-button (click)="getPermission()">Get Permission </button>
+  <button ion-button (click)="startListening()">Start Listening </button>
+
+  <ion-card *ngIf="speechList">
+    <ion-card-content>
+      <p *ngFor="let speech of speechList">
+        {{speech}}
+      </p>
+    </ion-card-content>
+  </ion-card>
+
+</ion-content>

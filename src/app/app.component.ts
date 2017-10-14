@@ -29,6 +29,9 @@ export class MyApp {
       { title: 'Youtube', pageName: 'YoutubePage', tabComponent: 'YoutubePage', index: 0, icon: 'home' },
       { title: 'Flashlight', pageName: 'FlashlightPage', tabComponent: 'FlashlightPage', index: 1, icon: 'light' },
       { title: 'Map', pageName: 'MapsPage', tabComponent: 'MapsPage', index: 2, icon: 'light' },
+      { title: 'Bar/QR Code', pageName: 'BarcodePage', tabComponent: 'BarcodePage', index: 3, icon: 'light' },
+      { title: 'Text to Speech', pageName: 'TtsPage', tabComponent: 'TtsPage', index: 4, icon: 'light' },
+      { title: 'Speech to Text', pageName: 'SttPage', tabComponent: 'SttPage', index: 5, icon: 'light' }
     ];
 
   }
@@ -42,7 +45,7 @@ export class MyApp {
     });
   }
 
-  openPage(page : PageInterface) {
+  openPage(page: PageInterface) {
     // Reset the content nav to have just this page
     // we wouldn't want the back button to show in this scenario
     this.nav.setRoot(page.tabComponent);
