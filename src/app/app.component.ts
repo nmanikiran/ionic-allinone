@@ -27,7 +27,8 @@ export class MyApp {
     // used for an example of ngFor and navigation
     this.pages = [
       { title: 'Youtube', pageName: 'YoutubePage', tabComponent: 'YoutubePage', index: 0, icon: 'home' },
-      { title: 'Special', pageName: 'SpecialPage', icon: 'shuffle' },
+      { title: 'Flashlight', pageName: 'FlashlightPage', tabComponent: 'FlashlightPage', index: 1, icon: 'light' },
+      { title: 'Map', pageName: 'MapsPage', tabComponent: 'MapsPage', index: 2, icon: 'light' },
     ];
 
   }

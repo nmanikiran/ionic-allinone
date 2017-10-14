@@ -4,7 +4,7 @@ import 'rxjs/add/operator/map';
 
 @Injectable()
 export class YtProvider {
-  apiKey = 'AIzaSyCQrugS5baPBSbk-Tyha8Xs3guDU9xohi4';
+  apiKey = 'AIzaSyAXrNf-YL8LFYZmJNHSXGeuRVK8qPSOoXQ';
   baseUrl = `https://www.googleapis.com/youtube/v3/`
 
   constructor(public http: Http) { }
