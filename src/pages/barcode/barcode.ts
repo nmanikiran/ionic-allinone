@@ -29,6 +29,8 @@ export class BarcodePage {
 
   async encodeData() {
     const result = await this.barcode.encode(this.barcode.Encode.TEXT_TYPE, 'https://www.linkedin.com/in/nmanikiran/');
+
+    console.log(result);
   }
 
 }

@@ -1,5 +1,5 @@
 <ion-header>
-  <ion-navbar color="danger">
+  <ion-navbar color="primary">
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
@@ -7,10 +7,14 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content padding>
+<ion-content>
   <ion-item>
     <ion-label stacked>Text</ion-label>
     <ion-textarea row="5" [(ngModel)]="text"></ion-textarea>
   </ion-item>
-  <button ion-button (click)="sayText()">Speak Now</button>
+  <ion-row center>
+    <ion-col text-center>
+      <button ion-button round (click)="sayText()">Speak Now</button>
+    </ion-col>
+  </ion-row>
 </ion-content>

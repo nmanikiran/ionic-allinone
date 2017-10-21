@@ -2,6 +2,8 @@ import { Component, ViewChild } from '@angular/core';
 import { Nav, Platform } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
+import { Network } from '@ionic-native/network';
+declare var Bugsnag;
 
 export interface PageInterface {
   title: string;
@@ -21,7 +23,8 @@ export class MyApp {
 
   pages: PageInterface[];
 
-  constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen) {
+  constructor(public platform: Platform, public statusBar: StatusBar, private network: Network, public splashScreen: SplashScreen) {
+
     this.initializeApp();
 
     // used for an example of ngFor and navigation
@@ -31,9 +34,25 @@ export class MyApp {
       { title: 'Map', pageName: 'MapsPage', tabComponent: 'MapsPage', index: 2, icon: 'light' },
       { title: 'Bar/QR Code', pageName: 'BarcodePage', tabComponent: 'BarcodePage', index: 3, icon: 'light' },
       { title: 'Text to Speech', pageName: 'TtsPage', tabComponent: 'TtsPage', index: 4, icon: 'light' },
-      { title: 'Speech to Text', pageName: 'SttPage', tabComponent: 'SttPage', index: 5, icon: 'light' }
+      { title: 'Speech to Text', pageName: 'SttPage', tabComponent: 'SttPage', index: 5, icon: 'light' },
+      { title: 'About', pageName: 'AboutPage', tabComponent: 'AboutPage', index: 5, icon: 'light' },
+      { title: 'My SMS', pageName: 'MySmsPage', tabComponent: 'MySmsPage', index: 6, icon: 'light' },
     ];
 
+  }
+
+  ionViewDidEnter() {
+    Bugsnag.notify("ErrorName", "Test Error");
+
+    
+    this.network.onConnect().subscribe(data => {
+      console.log(data);
+    }
+      , (error) => console.log(error));
+
+    this.network.onDisconnect().subscribe(data => {
+      console.log(data);
+    }, (error) => console.log(error));
   }
 
   initializeApp() {

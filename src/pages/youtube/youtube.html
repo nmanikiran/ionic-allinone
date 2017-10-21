@@ -1,5 +1,5 @@
 <ion-header>
-  <ion-navbar color="danger">
+  <ion-navbar color="primary">
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
@@ -12,16 +12,18 @@
     <ion-label stacked>Channel ID</ion-label>
     <ion-input type="text" [(ngModel)]="channelId"></ion-input>
   </ion-item>
-  <button full ion-button (click)="searchPlaylists()" [disabled]="channelId === ''" color="danger">
-    Search Playlists</button>
+  <button full ion-button (click)="searchPlaylists()" [disabled]="channelId === ''" color="primary">
+    Get Playlists</button>
 
   <ion-list no-padding>
-    <button ion-item *ngFor="let list of playlists | async" (click)="openPlaylist(list.id)">
+
+    <button ion-item *ngFor="let list of playlists | async" (click)="openPlaylist(list)">
       <ion-thumbnail item-start>
         <img [src]="list.snippet.thumbnails.high.url">
       </ion-thumbnail>
       <h2>{{ list.snippet.title }}</h2>
       <p>{{ list.snippet.publishedAt | date:'short' }}</p>
     </button>
+
   </ion-list>
 </ion-content>
