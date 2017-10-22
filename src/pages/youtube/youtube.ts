@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { AlertController, NavController, IonicPage, ModalController } from 'ionic-angular';
+import { AlertController, NavController, IonicPage } from 'ionic-angular';
 import { Observable } from 'rxjs/Observable';
 import { YtProvider } from '../../providers/yt/yt';
 
@@ -13,7 +13,7 @@ export class YoutubePage {
   playListId = 'PLtKjv92L0ihCYDnjfEppzUasoJ6UOdhcm';
   playlists: Observable<any[]>;
 
-  constructor(public navCtrl: NavController, private ytProvider: YtProvider, private alertCtrl: AlertController, private modal: ModalController) { }
+  constructor(public navCtrl: NavController, private ytProvider: YtProvider, private alertCtrl: AlertController) { }
 
   searchPlaylists() {
     this.playlists = this.ytProvider.getPlaylistsForChannel(this.channelId);

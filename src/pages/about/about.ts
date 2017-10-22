@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
-
+import { IonicPage, NavController } from 'ionic-angular';
+import { InAppBrowser, InAppBrowserOptions } from '@ionic-native/in-app-browser';
 import { CallNumber } from '@ionic-native/call-number';
+
 @IonicPage()
 @Component({
   selector: 'page-about',
@@ -9,7 +10,12 @@ import { CallNumber } from '@ionic-native/call-number';
 })
 export class AboutPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private call: CallNumber) {
+  inAppBrowserOptions: InAppBrowserOptions = {
+    zoom: 'no',
+    hardwareback:'yes',
+    location:'no'
+  };
+  constructor(public navCtrl: NavController, public appbrowser: InAppBrowser, private call: CallNumber) {
   }
 
   ionViewDidLoad() {
@@ -17,7 +23,13 @@ export class AboutPage {
   }
 
   async callNumber() {
-    await this.call.callNumber('8790222275', true);
+    await this.call.callNumber('1234456666', true);
+  }
+  ////https://www.linkedin.com/in/nmanikiran/
+  //https://github.com/nmanikiran
+  async openWebBrowser() {
+    const browser = await this.appbrowser.create('https://github.com/nmanikiran', '_self', this.inAppBrowserOptions);
+    browser.show();
   }
 
 }

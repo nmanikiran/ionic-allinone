@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { SMS } from '@ionic-native/sms';
 
-import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
+import { IonicPage, NavController, ToastController } from 'ionic-angular';
 
 @IonicPage()
 @Component({
@@ -23,15 +23,19 @@ export class MySmsPage {
   sendTextMessage() {
     this.sms.hasPermission().then((isPermission) => {
       if (isPermission) {
-        this.sms.send(this.phoneNumber, this.message).then((result) => {
-          console.log(result);
-          this.toast.create({
-            message: "message sent",
-            duration: 1000,
-            position: 'bottom'
-          });
+        try {
+          this.sms.send(this.phoneNumber, this.message).then((result) => {
+            console.log(result);
+            this.toast.create({
+              message: "message sent",
+              duration: 1000,
+              position: 'bottom'
+            });
 
-        }).catch((err) => console.log(err));
+          }).catch((err) => console.log(err));
+        } catch (err) {
+          console.log(err);
+        }
       } else {
         this.toast.create({ message: 'Not allowed, No SMS Permission.' });
       }

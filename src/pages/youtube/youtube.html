@@ -12,7 +12,7 @@
     <ion-label stacked>Channel ID</ion-label>
     <ion-input type="text" [(ngModel)]="channelId"></ion-input>
   </ion-item>
-  <button full ion-button (click)="searchPlaylists()" [disabled]="channelId === ''" color="primary">
+  <button block ion-button (click)="searchPlaylists()" [disabled]="channelId === ''" color="primary">
     Get Playlists</button>
 
   <ion-list no-padding>

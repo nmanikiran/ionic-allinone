@@ -13,7 +13,7 @@ export class YoutubeModalPage {
 
   constructor(public navCtrl: NavController, private params: NavParams, private viewCtrl: ViewController, private dom: DomSanitizer) {
 
-    this.video = params.get('video');
+    this.video = this.params.get('video');
 
     this.video.src = this.dom.bypassSecurityTrustResourceUrl(`https://www.youtube.com/embed/${this.video.snippet.resourceId.videoId}?showinfo=0&rel=0&autoplay=1`);
 

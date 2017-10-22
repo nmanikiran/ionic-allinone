@@ -1,0 +1,27 @@
+<ion-header>
+  <ion-navbar color="primary">
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Native Device Controls</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <button ion-button block (click)="vibrate()">Vibrate Now</button>
+
+  <ion-range min="10" max="100" step="10" [(ngModel)]="brightnessValue" (ionChange)=setBrightness()>
+    <ion-icon small range-left name="sunny"></ion-icon>
+    <ion-icon range-right name="sunny"></ion-icon>
+  </ion-range>
+
+  <ion-item>
+    <ion-label>Sleep Screen</ion-label>
+    <ion-toggle [(ngModel)]="screenSleep" (ionChange)=setKeepScreenOn()></ion-toggle>
+  </ion-item>
+
+  <button ion-fab color="{{isFlashOn ? 'danger' : 'light'}}" (click)="toggleFlashLight()">
+    <ion-icon ios="ios-flash-outline" md="md-flash"> </ion-icon>
+  </button>
+
+</ion-content>
