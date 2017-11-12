@@ -15,3 +15,9 @@ $ ionic cordova run android
 
 Substitute ios for android if not on a Mac.
 
+#### Replated Links
+[Ionic Components](https://ionicframework.com/docs/components/#overview)
+
+[Native plugins](https://ionicframework.com/docs/native/)
+
+[Icons](https://ionicframework.com/docs/ionicons/)
