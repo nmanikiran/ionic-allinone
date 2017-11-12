@@ -103,4 +103,5 @@
     <plugin name="cordova-plugin-headercolor" spec="^1.0.0" />
     <plugin name="cordova-plugin-brightness" spec="^0.1.5" />
     <plugin name="cordova-plugin-badge" spec="^0.8.4" />
+    <plugin name="com.darktalker.cordova.screenshot" spec="^0.1.6" />
 </widget>

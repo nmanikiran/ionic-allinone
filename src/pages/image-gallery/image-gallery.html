@@ -1,0 +1,40 @@
+
+<ion-header>
+  <ion-navbar color="primary">
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Image Gallery</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+
+  <div text-right>
+    <button ion-button small icon-only (click)="galleryType = 'regular'" color="light">
+      <ion-icon name="grid" isActive="galleryType == 'regular'" (click)="galleryType = 'regular'"></ion-icon>
+    </button>
+    <button ion-button small icon-only (click)="galleryType = 'pinterest'" color="light">
+      <ion-icon name="apps" isActive="galleryType == 'pinterest'" (click)="galleryType = 'pinterest'"></ion-icon>
+    </button>
+  </div>
+
+  <div [ngSwitch]="galleryType">
+    <!-- Responsive Layout with Ion Grid-->
+    <ion-grid *ngSwitchCase="'regular'">
+      <ion-row>
+        <ion-col col-6 col-md-4 col-xl-3 *ngFor="let image of images">
+          <div class="image-container" [style.background-image]="'url('+image+')'"></div>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+    <div class="images" *ngSwitchCase="'pinterest'">
+      <div class="one-image" *ngFor="let image of images">
+        <img [src]="image" />
+      </div>
+    </div>
+
+    <!-- More Pinterest floating gallery style -->
+
+  </div>
+</ion-content>

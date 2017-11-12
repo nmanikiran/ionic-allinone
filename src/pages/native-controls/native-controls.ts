@@ -1,9 +1,12 @@
 import { Component } from '@angular/core';
-import { IonicPage, Platform } from 'ionic-angular';
-import { Brightness } from '@ionic-native/brightness';
-import { Vibration } from '@ionic-native/vibration';
-import { Flashlight } from '@ionic-native/flashlight';
 import { Badge } from '@ionic-native/badge';
+import { BarcodeScanner, BarcodeScannerOptions } from '@ionic-native/barcode-scanner';
+import { Brightness } from '@ionic-native/brightness';
+import { FingerprintAIO, FingerprintOptions } from '@ionic-native/fingerprint-aio';
+import { Flashlight } from '@ionic-native/flashlight';
+import { Vibration } from '@ionic-native/vibration';
+
+import { IonicPage, Platform } from 'ionic-angular';
 
 @IonicPage()
 @Component({
@@ -13,10 +16,35 @@ import { Badge } from '@ionic-native/badge';
 export class NativeControlsPage {
 
   brightnessValue: number = 80;
-  screenSleep: boolean = false; 
+  screenSleep: boolean = false;
   isFlashOn: boolean = false;
+  fingerprintOptions: FingerprintOptions = {
+    clientId: 'fingerprint-demo',
+    disableBackup: true,
+    clientSecret: 'password'
+  };
+  results: any;
+  options: BarcodeScannerOptions;
 
-  constructor(private vibration: Vibration, private brightness: Brightness, private plt: Platform, private flashlight: Flashlight, private badge: Badge) {
+  constructor(private vibration: Vibration,
+    private barcode: BarcodeScanner,
+    private brightness: Brightness,
+    private plt: Platform, private flashlight: Flashlight,
+    private badge: Badge, public platform: Platform, public finger: FingerprintAIO) {
+  }
+
+  async showFingerPrintDailog() {
+    try {
+      await this.platform.ready()
+      const isAvailable = await this.finger.isAvailable();
+      console.log(isAvailable);
+      if (isAvailable === 'OK') {
+        const result = await this.finger.show(this.fingerprintOptions);
+        console.log(result);
+      }
+    } catch (err) {
+      console.log(err);
+    }
   }
 
   vibrate() {
@@ -55,6 +83,21 @@ export class NativeControlsPage {
     } catch (e) {
       console.log(e);
     }
+  }
+
+  async scanBarcode() {
+    this.options = {
+      prompt: "Scan a bar/qr code to see the results."
+    };
+
+    this.results = await this.barcode.scan(this.options);
+    console.log(this.results);
+  }
+
+  async encodeData() {
+    const result = await this.barcode.encode(this.barcode.Encode.TEXT_TYPE, 'https://www.linkedin.com/in/nmanikiran/');
+
+    console.log(result);
   }
 
 }

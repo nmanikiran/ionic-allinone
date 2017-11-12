@@ -5,7 +5,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { Network } from '@ionic-native/network';
 import { HeaderColor } from '@ionic-native/header-color';
 
-
+import { AppMinimize } from '@ionic-native/app-minimize';
 export interface PageInterface {
   title: string;
   pageName: string;
@@ -24,23 +24,25 @@ export class MyApp {
 
   pages: PageInterface[];
 
-  constructor(public platform: Platform, public statusBar: StatusBar, private network: Network, public splashScreen: SplashScreen, private headerColor: HeaderColor) {
+  constructor(public platform: Platform, public statusBar: StatusBar, private network: Network, public splashScreen: SplashScreen, private headerColor: HeaderColor, private appMinimize: AppMinimize) {
 
     this.initializeApp();
+
+    this.platform.registerBackButtonAction(() => {
+      this.appMinimize.minimize();
+    });
 
     // used for an example of ngFor and navigation
     this.pages = [
       { title: 'Youtube', pageName: 'YoutubePage', tabComponent: 'YoutubePage', index: 0, icon: 'home' },
       { title: 'Map', pageName: 'MapsPage', tabComponent: 'MapsPage', index: 1, icon: 'locate' },
-      { title: 'Bar/QR Code', pageName: 'BarcodePage', tabComponent: 'BarcodePage', index: 2, icon: 'barcode' },
       { title: 'Text to Speech', pageName: 'TtsPage', tabComponent: 'TtsPage', index: 3, icon: 'microphone' },
       { title: 'Speech to Text', pageName: 'SttPage', tabComponent: 'SttPage', index: 4, icon: 'mic' },
-      
       { title: 'My SMS', pageName: 'MySmsPage', tabComponent: 'MySmsPage', index: 5, icon: 'text' },
-      { title: 'Finger Print', pageName: 'FingerPrintPage', tabComponent: 'FingerPrintPage', index: 6, icon: 'finger-print' },
-      { title: 'Native Controls', pageName: 'NativeControlsPage', tabComponent: 'NativeControlsPage', index: 7, icon: 'cog' },
-      { title: 'About', pageName: 'AboutPage', tabComponent: 'AboutPage', index: 8, icon: 'information-circle' },
-      
+      { title: 'Image Gallery', pageName: 'ImageGalleryPage', tabComponent: 'ImageGalleryPage', index: 6, icon: 'images' },
+      { title: 'Native Controls', pageName: 'NativeControlsPage', tabComponent: 'NativeControlsPage', index: 19, icon: 'cog' },
+      { title: 'About', pageName: 'AboutPage', tabComponent: 'AboutPage', index: 20, icon: 'information-circle' },
+
     ];
 
   }

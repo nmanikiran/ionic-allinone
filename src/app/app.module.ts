@@ -18,7 +18,7 @@ import { TextToSpeech } from '@ionic-native/text-to-speech';
 import { Vibration } from '@ionic-native/vibration';
 import { YoutubeVideoPlayer } from '@ionic-native/youtube-video-player';
 import { Badge } from '@ionic-native/badge';
-
+import { AppMinimize } from '@ionic-native/app-minimize';
 
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 
@@ -27,12 +27,12 @@ import { MyApp } from './app.component';
 
 @NgModule({
   declarations: [
-    MyApp,
+    MyApp
   ],
   imports: [
     BrowserModule,
     HttpModule,
-    IonicModule.forRoot(MyApp),
+    IonicModule.forRoot(MyApp)
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -57,7 +57,8 @@ import { MyApp } from './app.component';
     Brightness,
     Vibration,
     HeaderColor,
-    Badge
+    Badge,
+    AppMinimize
   ]
 })
 export class AppModule { }
