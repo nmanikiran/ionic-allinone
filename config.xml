@@ -104,4 +104,6 @@
     <plugin name="cordova-plugin-brightness" spec="^0.1.5" />
     <plugin name="cordova-plugin-badge" spec="^0.8.4" />
     <plugin name="com.darktalker.cordova.screenshot" spec="^0.1.6" />
+    <plugin name="com.telerik.plugins.nativepagetransitions" spec="^0.6.5" />
+    <plugin name="cordova-plugin-calendar" spec="^4.6.0" />
 </widget>

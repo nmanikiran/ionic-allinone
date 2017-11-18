@@ -9,9 +9,9 @@
 
 <ion-content padding>
 
-  <button ion-button block (click)="showFingerPrintDailog()">Show Finger Print Dailog</button>
+  <button ion-button (click)="showFingerPrintDailog()">Show Finger Print Dailog</button>
 
-  <button ion-button block (click)="vibrate()">Vibrate Now</button>
+  <button ion-button (click)="vibrate()">Vibrate Now</button>
 
   <div *ngIf="results">
     <p>
@@ -22,8 +22,10 @@
       <strong>Cancelled:</strong> {{results.cancelled}}</p>
   </div>
 
-  <button ion-button (click)="scanBarcode()">Scan</button>
-  <button ion-button (click)="encodeData()">Encode</button>
+  <ion-row>
+    <button ion-button (click)="scanBarcode()">Scan</button>
+    <button ion-button (click)="encodeData()">Encode</button>
+  </ion-row>
 
   <ion-range min="10" max="100" step="10" [(ngModel)]="brightnessValue" (ionChange)=setBrightness()>
     <ion-icon small range-left name="sunny"></ion-icon>

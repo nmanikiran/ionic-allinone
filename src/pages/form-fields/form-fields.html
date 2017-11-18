@@ -1,0 +1,55 @@
+<ion-header>
+  <ion-navbar color="primary">
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Form Fields</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <form (submit)="onSubmit()">
+    <ion-list >
+      <ion-item>
+        <ion-label fixed>First Name</ion-label>
+        <ion-input name="fName" type="text" [(ngModel)]="formData.fName"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label floating>Last Name</ion-label>
+        <ion-input name="lName" type="text" [(ngModel)]="formData.lName"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>username</ion-label>
+        <ion-input name="username" type="text" [(ngModel)]="formData.username"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label stacked>Email</ion-label>
+        <ion-input name="email" type="text" [(ngModel)]="formData.email"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-input name="password" type="password" placeholder="Password" [(ngModel)]="formData.password"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>Gender</ion-label>
+        <ion-select [(ngModel)]="formData.gender" name="gender">
+          <ion-option value="M">Male</ion-option>
+          <ion-option value="F">Female</ion-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-item>
+        <ion-label> Professional Gamer</ion-label>
+        <ion-toggle name="isProfessional" [(ngModel)]="formData.isProfessional"></ion-toggle>
+      </ion-item>
+
+      <ion-item>
+        <ion-checkbox name="isAggred" color="dark" [(ngModel)]="formData.isAggred"></ion-checkbox>
+        <ion-label>Aggreed</ion-label>
+      </ion-item>
+    </ion-list>
+    <button ion-button type="submit">Continue</button>
+  </form>
+</ion-content>

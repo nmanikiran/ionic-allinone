@@ -1,5 +1,6 @@
 import { ErrorHandler, NgModule } from '@angular/core';
 import { HttpModule } from '@angular/http';
+import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 import { Brightness } from '@ionic-native/brightness';
@@ -19,8 +20,10 @@ import { Vibration } from '@ionic-native/vibration';
 import { YoutubeVideoPlayer } from '@ionic-native/youtube-video-player';
 import { Badge } from '@ionic-native/badge';
 import { AppMinimize } from '@ionic-native/app-minimize';
+import { NativePageTransitions } from '@ionic-native/native-page-transitions';
 
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
+
 
 import { YtProvider } from '../providers/yt/yt';
 import { MyApp } from './app.component';
@@ -32,6 +35,7 @@ import { MyApp } from './app.component';
   imports: [
     BrowserModule,
     HttpModule,
+    FormsModule,
     IonicModule.forRoot(MyApp)
   ],
   bootstrap: [IonicApp],
@@ -58,7 +62,8 @@ import { MyApp } from './app.component';
     Vibration,
     HeaderColor,
     Badge,
-    AppMinimize
+    AppMinimize,
+    NativePageTransitions
   ]
 })
 export class AppModule { }

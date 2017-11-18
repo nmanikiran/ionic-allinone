@@ -4,6 +4,8 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { Network } from '@ionic-native/network';
 import { HeaderColor } from '@ionic-native/header-color';
+import { NativePageTransitions, NativeTransitionOptions } from '@ionic-native/native-page-transitions';
+
 
 import { AppMinimize } from '@ionic-native/app-minimize';
 export interface PageInterface {
@@ -24,7 +26,11 @@ export class MyApp {
 
   pages: PageInterface[];
 
-  constructor(public platform: Platform, public statusBar: StatusBar, private network: Network, public splashScreen: SplashScreen, private headerColor: HeaderColor, private appMinimize: AppMinimize) {
+  constructor(public platform: Platform,
+    private nativePageTransitions: NativePageTransitions,
+    public statusBar: StatusBar, private network: Network,
+    public splashScreen: SplashScreen, private headerColor: HeaderColor,
+    private appMinimize: AppMinimize) {
 
     this.initializeApp();
 
@@ -40,6 +46,10 @@ export class MyApp {
       { title: 'Speech to Text', pageName: 'SttPage', tabComponent: 'SttPage', index: 4, icon: 'mic' },
       { title: 'My SMS', pageName: 'MySmsPage', tabComponent: 'MySmsPage', index: 5, icon: 'text' },
       { title: 'Image Gallery', pageName: 'ImageGalleryPage', tabComponent: 'ImageGalleryPage', index: 6, icon: 'images' },
+      { title: 'Dialogs & Toast', pageName: 'DialogPage', tabComponent: 'DialogPage', index: 7, icon: 'flame' },
+      { title: 'Forms', pageName: 'FormFieldsPage', tabComponent: 'FormFieldsPage', index: 8, icon: 'flame' },
+      
+      { title: 'Calendar', pageName: 'CalendarPage', tabComponent: 'CalendarPage', index: 8, icon: 'calendar' },
       { title: 'Native Controls', pageName: 'NativeControlsPage', tabComponent: 'NativeControlsPage', index: 19, icon: 'cog' },
       { title: 'About', pageName: 'AboutPage', tabComponent: 'AboutPage', index: 20, icon: 'information-circle' },
 
@@ -64,13 +74,26 @@ export class MyApp {
       // Here you can do any higher level native things you might need.
       this.statusBar.styleDefault();
       this.splashScreen.hide();
-      this.headerColor.tint('#becb29');
+      this.headerColor.tint('#488aff');
     });
   }
 
   openPage(page: PageInterface) {
+    let options: NativeTransitionOptions = {
+      direction: 'up',
+      duration: 500,
+      slowdownfactor: -1,
+      slidePixels: 20,
+      iosdelay: 100,
+      androiddelay: 150,
+      fixedPixelsTop: 0,
+      fixedPixelsBottom: 60
+    };
+    this.nativePageTransitions.slide(options);
+
     // Reset the content nav to have just this page
     // we wouldn't want the back button to show in this scenario
+
     this.nav.setRoot(page.tabComponent);
   }
 }
