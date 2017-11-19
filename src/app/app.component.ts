@@ -47,7 +47,7 @@ export class MyApp {
       { title: 'My SMS', pageName: 'MySmsPage', tabComponent: 'MySmsPage', index: 5, icon: 'text' },
       { title: 'Image Gallery', pageName: 'ImageGalleryPage', tabComponent: 'ImageGalleryPage', index: 6, icon: 'images' },
       { title: 'Dialogs & Toast', pageName: 'DialogPage', tabComponent: 'DialogPage', index: 7, icon: 'flame' },
-      { title: 'Forms', pageName: 'FormFieldsPage', tabComponent: 'FormFieldsPage', index: 8, icon: 'flame' },
+      { title: 'Forms', pageName: 'FormFieldsPage', tabComponent: 'FormFieldsPage', index: 8, icon: 'list-box' },
       
       { title: 'Calendar', pageName: 'CalendarPage', tabComponent: 'CalendarPage', index: 8, icon: 'calendar' },
       { title: 'Native Controls', pageName: 'NativeControlsPage', tabComponent: 'NativeControlsPage', index: 19, icon: 'cog' },

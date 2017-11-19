@@ -21,6 +21,7 @@ import { YoutubeVideoPlayer } from '@ionic-native/youtube-video-player';
 import { Badge } from '@ionic-native/badge';
 import { AppMinimize } from '@ionic-native/app-minimize';
 import { NativePageTransitions } from '@ionic-native/native-page-transitions';
+import { Calendar } from '@ionic-native/calendar';
 
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 
@@ -62,6 +63,7 @@ import { MyApp } from './app.component';
     Vibration,
     HeaderColor,
     Badge,
+    Calendar,
     AppMinimize,
     NativePageTransitions
   ]

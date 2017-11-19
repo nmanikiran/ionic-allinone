@@ -12,12 +12,13 @@
     <ion-label stacked>Channel ID</ion-label>
     <ion-input type="text" [(ngModel)]="channelId"></ion-input>
   </ion-item>
-  <button block ion-button (click)="searchPlaylists()" [disabled]="channelId === ''" color="primary">
+
+  <button full ion-button (click)="searchPlaylists()" [disabled]="channelId === ''" color="primary">
     Get Playlists</button>
 
   <ion-list no-padding>
 
-    <button ion-item *ngFor="let list of playlists | async" (click)="openPlaylist(list)">
+    <button ion-item *ngFor="let list of playlists" (click)="openPlaylist(list)">
       <ion-thumbnail item-start>
         <img [src]="list.snippet.thumbnails.high.url">
       </ion-thumbnail>
@@ -26,4 +27,8 @@
     </button>
 
   </ion-list>
+  
+  <ion-infinite-scroll (ionInfinite)="$event.waitFor(searchPlaylists())">
+    <ion-infinite-scroll-content loadingSpinner="bubbles"></ion-infinite-scroll-content>
+  </ion-infinite-scroll>
 </ion-content>

@@ -13,6 +13,7 @@ export class PlaylistPage {
   videoList: any = [];
   playListId: string;
   playListTitle: string;
+  results: any = {};
 
   constructor(public navCtrl: NavController, private modal: ModalController, public navParams: NavParams, private ytProvider: YtProvider, private player: YoutubeVideoPlayer) {
     const playList = this.navParams.get('playList');
@@ -26,11 +27,23 @@ export class PlaylistPage {
   }
 
   getVideoList() {
-    this.videoList = this.ytProvider.getListVideos(this.playListId);
-    this.videoList.subscribe(data => {
-      console.log('videos', data);
-    }, err => console.log(err)
-    );
+    return new Promise((resolve) => {
+
+      if (this.results.pageInfo && this.results.pageInfo.totalResults === this.videoList.length)
+        return resolve();
+      let data = {
+        'playlistId': this.playListId,
+        'pageToken': this.results.nextPageToken
+      };
+      this.ytProvider.getListVideos(data).subscribe(res => {
+        this.results = res;
+        resolve();
+        this.videoList = [...this.videoList, ...res.items];
+      }, (err) => {
+        resolve();
+        console.log(err)
+      });
+    });
   }
 
   playVideo(video) {

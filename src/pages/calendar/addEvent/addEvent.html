@@ -1,0 +1,49 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-title> Add Event </ion-title>
+        <ion-buttons start>
+            <button ion-button (click)="dismiss()">
+                <ion-icon name="md-close"></ion-icon>
+            </button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+<ion-content>
+    <form (submit)="onSubmit()">
+        <ion-list>
+            <ion-item>
+                <ion-label color="primary" floating>Title</ion-label>
+                <ion-input name="title" type="text" [(ngModel)]="event.title"></ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-label color="primary" floating>Location</ion-label>
+                <ion-input name="location" type="text" [(ngModel)]="event.location" (ionChange)="getPlaces($event)"></ion-input>
+            </ion-item>
+            <ion-item *ngFor="let item of places" (click)="seletedDestination(item)">
+                {{item.formatted_address}}
+            </ion-item>
+            <ion-item>
+                <ion-textarea name="notes" placeholder="Enter a description" [(ngModel)]="event.notes"></ion-textarea>
+            </ion-item>
+
+            <ion-item>
+                <ion-label>Start Date</ion-label>
+                <ion-datetime name="startDate" displayFormat="MM/DD/YYYY HH:mm" [(ngModel)]="event.startTime "></ion-datetime>
+            </ion-item>
+            <ion-item>
+                <ion-label>End Date</ion-label>
+                <ion-datetime name="endDate" displayFormat="MM/DD, YYYY HH:mm" [(ngModel)]="event.endTime"></ion-datetime>
+            </ion-item>
+            <ion-item>
+                <ion-label>All Day</ion-label>
+                <ion-checkbox name="allday" [(ngModel)]="event.allDay"></ion-checkbox>
+            </ion-item>
+        </ion-list>
+
+        <ion-row>
+            <ion-col text-center>
+                <button ion-button type="submit">Continue</button>
+            </ion-col>
+        </ion-row>
+    </form>
+</ion-content>

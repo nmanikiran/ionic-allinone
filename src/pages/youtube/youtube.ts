@@ -9,27 +9,42 @@ import { YtProvider } from '../../providers/yt/yt';
   templateUrl: 'youtube.html'
 })
 export class YoutubePage {
-  channelId = 'UCd6MoB9NC6uYN2grvUNT-Zg'; // Devdactic Channel ID
+  channelId = 'UCd6MoB9NC6uYN2grvUNT-Zg'; //  Channel ID
   playListId = 'PLtKjv92L0ihCYDnjfEppzUasoJ6UOdhcm';
-  playlists: Observable<any[]>;
+  playlists = [];
+  results: any = {};
 
   constructor(public navCtrl: NavController, private ytProvider: YtProvider, private alertCtrl: AlertController) { }
 
   searchPlaylists() {
-    this.playlists = this.ytProvider.getPlaylistsForChannel(this.channelId);
-    this.playlists.subscribe(data => {
-      //  console.log('playlists: ', data);
-    }, err => {
-      let alert = this.alertCtrl.create({
-        title: 'Error',
-        message: 'No Videos found for that Playlist ID',
-        buttons: ['OK']
+    return new Promise((resolve) => {
+
+      if (this.results.pageInfo && this.results.pageInfo.totalResults === this.playlists.length) {
+        return resolve();
+      }
+      var data = {
+        'channelId': this.channelId,
+        'pageToken': this.results.nextPageToken
+      }
+      this.ytProvider.getPlaylistsForChannel(data).subscribe(res => {
+        console.log(res);
+        this.results = res;
+        this.playlists = [...this.playlists, ...res.items];
+        resolve();
+      }, err => {
+        resolve();
+        let alert = this.alertCtrl.create({
+          title: 'Error',
+          message: 'No Videos found for that Playlist ID',
+          buttons: ['OK']
+        });
+        alert.present();
       });
-      alert.present();
-    })
+
+    });
   }
 
   openPlaylist(list) {
-    this.navCtrl.push('PlaylistPage', { 'playList': list  });
+    this.navCtrl.push('PlaylistPage', { 'playList': list });
   }
 }
