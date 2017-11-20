@@ -6,7 +6,10 @@ import { FingerprintAIO, FingerprintOptions } from '@ionic-native/fingerprint-ai
 import { Flashlight } from '@ionic-native/flashlight';
 import { Vibration } from '@ionic-native/vibration';
 
-import { IonicPage, Platform } from 'ionic-angular';
+import { IonicPage, Platform, ToastController } from 'ionic-angular';
+import { CallNumber } from '@ionic-native/call-number';
+import { SMS } from '@ionic-native/sms';
+import { TextToSpeech } from '@ionic-native/text-to-speech';
 
 @IonicPage()
 @Component({
@@ -25,19 +28,56 @@ export class NativeControlsPage {
   };
   results: any;
   options: BarcodeScannerOptions;
+  phoneNumber: number;
+  message: string = "Hello from Ionic App testing.";
+  type: string = 'call';
+  speechText: string;
 
   constructor(private vibration: Vibration,
     private barcode: BarcodeScanner,
     private brightness: Brightness,
+    private call: CallNumber,
     private plt: Platform, private flashlight: Flashlight,
+    private toast: ToastController, private sms: SMS,
+    private tts: TextToSpeech,
     private badge: Badge, public platform: Platform, public finger: FingerprintAIO) {
+    this.type = 'call';
+  }
+
+  async callNumber() {
+    await this.call.callNumber(this.phoneNumber.toString(), true);
+  }
+
+  sendTextMessage() {
+
+    this.sms.hasPermission().then((isPermission) => {
+      if (isPermission) {
+        this.sms.send(this.phoneNumber.toString(), this.message).then((result) => {
+          console.log(result);
+          this.toast.create({
+            message: "message sent", duration: 1000, position: 'bottom'
+          });
+
+        }).catch((err) => console.log(err));
+      } else {
+        this.toast.create({ message: 'Not allowed, No SMS Permission.' });
+      }
+    }).catch((err) => console.log(err));
+  }
+
+  async sayText(): Promise<any> {
+    try {
+      await this.tts.speak(this.speechText);
+      console.log("Successfully Spoke ", this.speechText);
+    } catch (e) {
+      console.log(e);
+    }
   }
 
   async showFingerPrintDailog() {
     try {
       await this.platform.ready()
       const isAvailable = await this.finger.isAvailable();
-      console.log(isAvailable);
       if (isAvailable === 'OK') {
         const result = await this.finger.show(this.fingerprintOptions);
         console.log(result);
@@ -91,7 +131,6 @@ export class NativeControlsPage {
     };
 
     this.results = await this.barcode.scan(this.options);
-    console.log(this.results);
   }
 
   async encodeData() {

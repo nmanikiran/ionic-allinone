@@ -9,7 +9,61 @@
 
 <ion-content padding>
 
-  <button ion-button (click)="showFingerPrintDailog()">Show Finger Print Dailog</button>
+  <ion-segment [(ngModel)]="type">
+    <ion-segment-button value="call">
+      <ion-icon name="call"></ion-icon>
+    </ion-segment-button>
+    <ion-segment-button value="sms">
+      <ion-icon name="text"></ion-icon>
+    </ion-segment-button>
+    <ion-segment-button value="speech">
+      <ion-icon name="mic"></ion-icon>
+    </ion-segment-button>
+    <ion-segment-button value="text">
+      <ion-icon name="volume-up"></ion-icon>
+    </ion-segment-button>
+  </ion-segment>
+
+  <div [ngSwitch]="type">
+
+    <ion-list *ngSwitchCase="'call'">
+      <ion-item no-padding>
+        <ion-label floating>Phone Number</ion-label>
+        <ion-input type="text" name="phone" [(ngModel)]="phoneNumber"></ion-input>
+      </ion-item>
+      <button ion-button icon-left block [disabled]=!phoneNumber (click)="callNumber()">
+        <ion-icon name="call"></ion-icon> Call
+      </button>
+    </ion-list>
+
+    <ion-list *ngSwitchCase="'sms'">
+      <ion-item no-padding>
+        <ion-label floating>Phone Number</ion-label>
+        <ion-input name="phone" [(ngModel)]="phoneNumber"></ion-input>
+      </ion-item>
+
+      <ion-item no-padding>
+        <ion-label floating>Message</ion-label>
+        <ion-textarea name="message" row="5" [(ngModel)]="message"></ion-textarea>
+      </ion-item>
+      <button ion-button icon-left block [disabled]=!phoneNumber (click)="sendTextMessage()">
+        <ion-icon name="send"></ion-icon> Send
+      </button>
+    </ion-list>
+
+    <ion-list *ngSwitchCase="'text'">
+      <ion-item no-padding>
+        <ion-label floating>Text</ion-label>
+        <ion-textarea row="5" [(ngModel)]="speechText"></ion-textarea>
+      </ion-item>
+      <button ion-button block (click)="sayText()" [disabled]=!speechText>Speak Now</button>
+    </ion-list>
+
+  </div>
+
+  <hr />
+
+  <button ion-button (click)="showFingerPrintDailog()">Show Finger Print</button>
 
   <button ion-button (click)="vibrate()">Vibrate Now</button>
 
