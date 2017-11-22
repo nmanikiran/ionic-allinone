@@ -1,15 +1,32 @@
-
 <ion-header>
   <ion-navbar color="primary">
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>Maps</ion-title>
+    <ion-title *ngIf="mapType == 'title'">Maps</ion-title>
+    <ion-searchbar #inputToFocus *ngIf="mapType == 'search'" (cancel)="searchCancel()" (keyup)="locationChange()" [(ngModel)]="location"></ion-searchbar>
+    <ion-buttons end>
+      <button ion-button icon-only (click)="search()">
+        <ion-icon name="search"></ion-icon>
+      </button>
+    </ion-buttons>
   </ion-navbar>
 </ion-header>
 
 
-<ion-content padding>
- <strong>coords</strong>   {{coords.latitude}}, {{coords.longitude}}
+<ion-content>
+
+  <ion-list no-padding *ngIf="places && places.length">
+    <ion-item *ngFor="let item of places" (click)="seletedDestination(item)">
+      {{item.formatted_address}}
+    </ion-item>
+  </ion-list>
+
+  <div padding-left>
+    <p>
+      <strong>coords</strong> {{coords.latitude}}, {{coords.longitude}}
+    </p>
+  </div>
   <div #map id="map"></div>
+
 </ion-content>

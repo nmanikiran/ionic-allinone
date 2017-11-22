@@ -4,6 +4,11 @@
       <ion-icon name="menu"></ion-icon>
     </button>
     <ion-title>Dialogs & Toast</ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only (click)="showPrompt()">
+        <ion-icon name="add"></ion-icon>
+      </button>
+    </ion-buttons>
   </ion-navbar>
 </ion-header>
 
@@ -17,7 +22,7 @@
   </div>
 
   <ion-list>
-    <ion-item *ngFor="let item of itemList; let i = index">
+    <ion-item no-padding *ngFor="let item of itemList; let i = index">
       {{item.title}}
       <ion-icon name="trash" item-end (click)="showConfirm(i)"></ion-icon>
     </ion-item>
@@ -28,5 +33,5 @@
       <ion-icon name="add"></ion-icon>
     </button>
   </ion-fab>
-  
+
 </ion-content>

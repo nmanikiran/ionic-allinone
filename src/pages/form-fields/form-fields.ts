@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Platform } from 'ionic-angular';
 
 
 @IonicPage()
@@ -19,17 +19,20 @@ export class FormFieldsPage {
     isAggred: false,
     gender: ''
   };
+  type: string;
+  interface: string;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController, private pt: Platform, public navParams: NavParams) {
+    this.type = 'signin';
+    this.interface = this.pt.is('ios') ? 'action-sheet' : 'popover';
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad FormFieldsPage');
+    // console.log('ionViewDidLoad FormFieldsPage');
   }
 
-  onSubmit(){
+  onSubmit() {
     console.log(this.formData);
-
   }
 
 }

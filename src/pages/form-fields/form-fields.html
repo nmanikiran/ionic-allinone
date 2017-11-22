@@ -8,48 +8,80 @@
 </ion-header>
 
 <ion-content padding>
-  <form (submit)="onSubmit()">
-    <ion-list >
-      <ion-item>
-        <ion-label fixed>First Name</ion-label>
-        <ion-input name="fName" type="text" [(ngModel)]="formData.fName"></ion-input>
-      </ion-item>
 
-      <ion-item>
-        <ion-label floating>Last Name</ion-label>
-        <ion-input name="lName" type="text" [(ngModel)]="formData.lName"></ion-input>
-      </ion-item>
+  <ion-segment [(ngModel)]="type">
+    <ion-segment-button value="signin">
+      Signin
+    </ion-segment-button>
+    <ion-segment-button value="signup">
+      Signup
+    </ion-segment-button>
 
-      <ion-item>
-        <ion-label>username</ion-label>
-        <ion-input name="username" type="text" [(ngModel)]="formData.username"></ion-input>
-      </ion-item>
-      <ion-item>
-        <ion-label stacked>Email</ion-label>
-        <ion-input name="email" type="text" [(ngModel)]="formData.email"></ion-input>
-      </ion-item>
-      <ion-item>
-        <ion-input name="password" type="password" placeholder="Password" [(ngModel)]="formData.password"></ion-input>
-      </ion-item>
+  </ion-segment>
 
-      <ion-item>
-        <ion-label>Gender</ion-label>
-        <ion-select [(ngModel)]="formData.gender" name="gender">
-          <ion-option value="M">Male</ion-option>
-          <ion-option value="F">Female</ion-option>
-        </ion-select>
-      </ion-item>
+  <div [ngSwitch]="type">
 
-      <ion-item>
-        <ion-label> Professional Gamer</ion-label>
-        <ion-toggle name="isProfessional" [(ngModel)]="formData.isProfessional"></ion-toggle>
-      </ion-item>
+    <div *ngSwitchCase="'signin'">
+      <form (submit)="onSubmit()">
+        <ion-list>
 
-      <ion-item>
-        <ion-checkbox name="isAggred" color="dark" [(ngModel)]="formData.isAggred"></ion-checkbox>
-        <ion-label>Aggreed</ion-label>
-      </ion-item>
-    </ion-list>
-    <button ion-button type="submit">Continue</button>
-  </form>
+          <ion-row>
+            <ion-item no-padding>
+              <ion-input name="email" placeholder="Email" type="text" [(ngModel)]="formData.email"></ion-input>
+            </ion-item>
+          </ion-row>
+          <ion-row>
+            <ion-item no-padding>
+              <ion-input name="password" type="password" placeholder="Password" [(ngModel)]="formData.password"></ion-input>
+            </ion-item>
+          </ion-row>
+          <button ion-button type="submit">Continue</button>
+        </ion-list>
+      </form>
+    </div>
+
+    <div *ngSwitchCase="'signup'">
+      <form (submit)="onSubmit()">
+        <ion-list no-padding>
+          <ion-row>
+            <ion-col width-50>
+              <ion-item no-padding>
+                <ion-input name="fName" placeholder="First Name" type="text" [(ngModel)]="formData.fName"></ion-input>
+              </ion-item>
+            </ion-col>
+            <ion-col width-50>
+              <ion-item no-padding>
+                <ion-input name="lName" placeholder="Last Name" type="text" [(ngModel)]="formData.lName"></ion-input>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+          <ion-item no-padding>
+            <ion-input name="username" placeholder="Username" type="text" [(ngModel)]="formData.username"></ion-input>
+          </ion-item>
+          <ion-item no-padding>
+            <ion-input name="email" placeholder="Email" type="text" [(ngModel)]="formData.email"></ion-input>
+          </ion-item>
+          <ion-item no-padding>
+            <ion-input name="password" type="password" placeholder="Password" [(ngModel)]="formData.password"></ion-input>
+          </ion-item>
+
+          <ion-item no-padding>
+            <ion-label>Gender</ion-label>
+            <ion-select [(ngModel)]="formData.gender" name="gender" [interface]="interface">
+              <ion-option value="M">Male</ion-option>
+              <ion-option value="F">Female</ion-option>
+            </ion-select>
+          </ion-item>
+
+          <ion-item no-padding no-lines>
+            <ion-checkbox name="isAggred" color="dark" [(ngModel)]="formData.isAggred"></ion-checkbox>
+            <ion-label>Aggreed</ion-label>
+          </ion-item>
+          <button ion-button type="submit">Continue</button>
+        </ion-list>
+      </form>
+    </div>
+  </div>
+
+
 </ion-content>

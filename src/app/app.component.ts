@@ -22,7 +22,7 @@ export interface PageInterface {
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
-  rootPage: string = 'YoutubePage';
+  rootPage: string = 'IntroPage';
 
   pages: PageInterface[];
 
