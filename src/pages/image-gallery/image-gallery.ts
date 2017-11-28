@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
-import { IonicPage, NavController } from 'ionic-angular';
+import { ImageProvider } from './../../providers/image/image';
+import { Component, ViewChild } from '@angular/core';
+import { IonicPage, NavController, Slides } from 'ionic-angular';
 
 @IonicPage()
 @Component({
@@ -7,25 +8,45 @@ import { IonicPage, NavController } from 'ionic-angular';
   templateUrl: 'image-gallery.html',
 })
 export class ImageGalleryPage {
-  galleryType = 'regular';
+
+  @ViewChild(Slides) slides: Slides;
+  galleryType: string = 'grid';
   images = [];
-  constructor(public navCtrl: NavController) {
+  pager = { page: 1 }
+
+  constructor(public navCtrl: NavController, private imgProvider: ImageProvider) {
+    this.galleryType = 'grid';
     this.loadImages();
   }
 
   loadImages() {
-    this.images = ["https://images-na.ssl-images-amazon.com/images/M/MV5BMTQxMjMzMTczM15BMl5BanBnXkFtZTcwNzg5MzUyMQ@@._V1_SX300.jpg",
-      "https://images-na.ssl-images-amazon.com/images/M/MV5BMTY5MzYwNDYwNF5BMl5BanBnXkFtZTgwMDMwNDg5MTE@._V1_SX300.jpg",
-      "https://images-na.ssl-images-amazon.com/images/M/MV5BMzc5NTUzNTgzMF5BMl5BanBnXkFtZTcwODcwMzQ5Mw@@._V1_SX300.jpg",
-      "https://images-na.ssl-images-amazon.com/images/M/MV5BMTM0MzM2MjU0N15BMl5BanBnXkFtZTcwMDIyMDcxMw@@._V1_SX300.jpg",
-      "http://ia.media-imdb.com/images/M/MV5BMzUyNjc3NTg0NV5BMl5BanBnXkFtZTcwMTQ1OTg4Mg@@._V1_SX300.jpg",
-      "http://ia.media-imdb.com/images/M/MV5BMTY4NjkzMDg0NV5BMl5BanBnXkFtZTcwNjAwOTA3NA@@._V1_SX300.jpg",
-      "https://images-na.ssl-images-amazon.com/images/M/MV5BMTc1MTM0MTA2N15BMl5BanBnXkFtZTcwMTk1OTIzMQ@@._V1_SX300.jpg",
-      "http://ia.media-imdb.com/images/M/MV5BNjk0OTYzNzU3OF5BMl5BanBnXkFtZTcwNTAwOTA3NA@@._V1_SX300.jpg",
-      "http://ia.media-imdb.com/images/M/MV5BMWRmYTc0NDYtYTZkYS00YzBhLTkyMmUtZjg3MTcwMjUxZTljXkEyXkFqcGdeQXVyMzYzNzc1NjY@._V1_SX300.jpg"];
+    return new Promise((resolve) => {
+      this.imgProvider.getPhotos(this.pager).subscribe((res) => {
+        this.images = [...this.images, ...res]
+        this.pager.page += 1;
+        resolve();
+      }, (err) => {
+        resolve();
+        console.log(err);
+      });
+    });
   }
+
+  slideChanged() {
+    let currentIndex = this.slides.getActiveIndex();
+    //console.log('Current index is', currentIndex);
+  }
+
+  gotoSlide(i) {
+    this.slides.slideTo(i, 500);
+  }
+
   ionViewDidLoad() {
-    console.log('ionViewDidLoad ImageGalleryPage');
+    // console.log('ionViewDidLoad ImageGalleryPage');
+  }
+
+  gotoDetails(image) {
+    this.navCtrl.push('ImageDetailsPage', { image });
   }
 
 }

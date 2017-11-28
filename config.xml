@@ -108,4 +108,5 @@
     <plugin name="com.telerik.plugins.nativepagetransitions" spec="^0.6.5" />
     <plugin name="cordova-plugin-calendar" spec="^4.6.0" />
     <plugin name="cordova-plugin-x-socialsharing" spec="^5.2.1" />
+    <plugin name="com-sarriaroman-photoviewer" spec="^1.1.11" />
 </widget>

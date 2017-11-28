@@ -3,6 +3,32 @@ page-image-gallery {
         min-height: 200px;
         background-size: cover;
     }
+    .image-gallery {
+        height: calc(100vh -100px);
+    }
+    ion-slides {
+        height: 300px;
+        display: flex;
+        justify-content: center;
+        align-content: center;
+    }
+    .slide-image {
+        max-height: 50%;
+        max-width: 60%;
+        margin: 18px 0;
+    }
+    .swiper-slide {
+        background-size: cover;
+        width: 100%;
+    }
+    .image-slider ion-slide.swiper-slide {
+        left: 25%;
+    }
+    .thumb-img {
+        height: 150px;
+        width: 150px;
+        padding: 10px;
+    }
     @media (min-width: 0px) {
         .images {
             column-count: 2;

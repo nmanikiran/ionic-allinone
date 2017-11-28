@@ -15,6 +15,7 @@ import { HeaderColor } from '@ionic-native/header-color';
 import { InAppBrowser } from '@ionic-native/in-app-browser';
 import { NativePageTransitions } from '@ionic-native/native-page-transitions';
 import { Network } from '@ionic-native/network';
+import { PhotoViewer } from '@ionic-native/photo-viewer';
 import { SMS } from '@ionic-native/sms';
 import { SpeechRecognition } from '@ionic-native/speech-recognition';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -22,8 +23,10 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { TextToSpeech } from '@ionic-native/text-to-speech';
 import { Vibration } from '@ionic-native/vibration';
 import { YoutubeVideoPlayer } from '@ionic-native/youtube-video-player';
+
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 
+import { ImageProvider } from '../providers/image/image';
 import { YtProvider } from '../providers/yt/yt';
 import { MyApp } from './app.component';
 
@@ -63,7 +66,9 @@ import { MyApp } from './app.component';
     Badge,
     Calendar,
     AppMinimize,
-    NativePageTransitions
+    NativePageTransitions,
+    ImageProvider,
+    PhotoViewer
   ]
 })
 export class AppModule { }

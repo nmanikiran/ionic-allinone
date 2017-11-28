@@ -1,0 +1,19 @@
+page-image-details {
+    .scroll-content {
+        padding-top: 0 !important;
+    }
+    .image {
+        height: calc(100vh - 20%);
+        background-size: cover;
+    }
+    .header {
+        background: linear-gradient((lighten($color:map-get($colors, dark), $amount: 50), transparent));
+        &:after {
+            background-image: url();
+        }
+        ion-icon {
+            color: map-get($colors, light);
+            padding: 0;
+        }
+    }
+}
