@@ -1,15 +1,21 @@
-import { Component } from '@angular/core';
+import { ChangeDetectorRef, Component } from '@angular/core';
 import { Badge } from '@ionic-native/badge';
 import { BarcodeScanner, BarcodeScannerOptions } from '@ionic-native/barcode-scanner';
 import { Brightness } from '@ionic-native/brightness';
+import { CallNumber } from '@ionic-native/call-number';
 import { FingerprintAIO, FingerprintOptions } from '@ionic-native/fingerprint-aio';
 import { Flashlight } from '@ionic-native/flashlight';
+import { SMS } from '@ionic-native/sms';
+import {
+  SpeechRecognition, SpeechRecognitionListeningOptionsAndroid,
+  SpeechRecognitionListeningOptionsIOS
+} from '@ionic-native/speech-recognition';
+import { TextToSpeech } from '@ionic-native/text-to-speech';
 import { Vibration } from '@ionic-native/vibration';
 
-import { IonicPage, Platform, ToastController } from 'ionic-angular';
-import { CallNumber } from '@ionic-native/call-number';
-import { SMS } from '@ionic-native/sms';
-import { TextToSpeech } from '@ionic-native/text-to-speech';
+import { IonicPage, Platform } from 'ionic-angular';
+
+import { ToastProvider } from '../../providers/toast/toast';
 
 @IonicPage()
 @Component({
@@ -26,22 +32,37 @@ export class NativeControlsPage {
     disableBackup: true,
     clientSecret: 'password'
   };
-  results: any;
+  barcodeResults: any;
   options: BarcodeScannerOptions;
   phoneNumber: number;
   message: string = "Hello from Ionic App testing.";
   type: string = 'call';
   speechText: string;
 
+  speechList: Array<string> = [];
+  isRecording: boolean = false;
+  speechOptions: any;
+  androidOptions: SpeechRecognitionListeningOptionsAndroid;
+  iosOptions: SpeechRecognitionListeningOptionsIOS;
+
+
   constructor(private vibration: Vibration,
     private barcode: BarcodeScanner,
     private brightness: Brightness,
     private call: CallNumber,
     private plt: Platform, private flashlight: Flashlight,
-    private toast: ToastController, private sms: SMS,
+    private toast: ToastProvider, private sms: SMS,
     private tts: TextToSpeech,
-    private badge: Badge, public platform: Platform, public finger: FingerprintAIO) {
+    private badge: Badge, public platform: Platform, public finger: FingerprintAIO,
+    private speech: SpeechRecognition, private cd: ChangeDetectorRef) {
     this.type = 'call';
+  }
+
+  segmentChanged(e) {
+    console.log(e.value);
+    if (e.value === 'speech') {
+      this.initSpeech();
+    }
   }
 
   async callNumber() {
@@ -54,13 +75,11 @@ export class NativeControlsPage {
       if (isPermission) {
         this.sms.send(this.phoneNumber.toString(), this.message).then((result) => {
           console.log(result);
-          this.toast.create({
-            message: "message sent", duration: 1000, position: 'bottom'
-          });
+          this.toast.show({ message: "message sent" });
 
         }).catch((err) => console.log(err));
       } else {
-        this.toast.create({ message: 'Not allowed, No SMS Permission.' });
+        this.toast.show({ message: 'Not allowed, No SMS Permission.' });
       }
     }).catch((err) => console.log(err));
   }
@@ -126,17 +145,69 @@ export class NativeControlsPage {
   }
 
   async scanBarcode() {
-    this.options = {
-      prompt: "Scan a bar/qr code to see the results."
-    };
+    try {
+      this.options = {
+        prompt: "Scan a bar/qr code to see the results."
+      };
 
-    this.results = await this.barcode.scan(this.options);
+      this.barcodeResults = await this.barcode.scan(this.options);
+    } catch (e) {
+      console.log(e);
+    }
   }
 
   async encodeData() {
-    const result = await this.barcode.encode(this.barcode.Encode.TEXT_TYPE, 'https://www.linkedin.com/in/nmanikiran/');
+    try {
+      const result = await this.barcode.encode(this.barcode.Encode.TEXT_TYPE, 'https://www.linkedin.com/in/nmanikiran/');
 
-    console.log(result);
+      // console.log(result);
+    } catch (e) {
+      console.log(e);
+    }
   }
+
+  async getLanguages(): Promise<void> {
+    const langs = await this.speech.getSupportedLanguages();
+    console.log(langs);
+  }
+
+  startListening(): void {
+    this.androidOptions = { showPopup: false };
+    if (this.plt.is('android')) {
+      this.speechOptions = this.androidOptions;
+    } else if (this.plt.is('ios')) {
+      this.speechOptions = this.iosOptions;
+    }
+
+    this.speech.startListening(this.speechOptions).subscribe(data => {
+      this.speechList = data.splice(0, 1);
+      this.isRecording = true;
+      this.cd.detectChanges();
+    }, err => console.log(err));
+  }
+
+  stopListening(): void {
+    this.speech.stopListening().then(data => {
+      this.isRecording = false;
+    }, err => console.log(err));
+  }
+
+  async initSpeech() {
+    try {
+      const isAvailable = await this.speech.isRecognitionAvailable();
+      if (isAvailable) {
+        this.speech.hasPermission().then(hasPermission => {
+          if (!hasPermission) {
+            this.speech.requestPermission();
+          }
+        })
+      } else {
+        this.toast.show({ message: 'Speech Recognition is Not Available :(' });
+      }
+    } catch (e) {
+      console.log(e);
+    }
+  }
+
 
 }

@@ -9,7 +9,7 @@
 
 <ion-content padding>
 
-  <ion-segment [(ngModel)]="type">
+  <ion-segment [(ngModel)]="type" (ionChange)="segmentChanged($event)">
     <ion-segment-button value="call">
       <ion-icon name="call"></ion-icon>
     </ion-segment-button>
@@ -50,7 +50,18 @@
         <ion-icon name="send"></ion-icon> Send
       </button>
     </ion-list>
+    <ion-list *ngSwitchCase="'speech'">
+      <button ion-button (click)="startListening()">Start Listening </button>
+      <button ion-button (click)="stopListening()">Stop Listening </button>
 
+      <ion-card *ngIf="speechList">
+        <ion-card-content>
+          <p *ngFor="let speech of speechList">
+            {{speech}}
+          </p>
+        </ion-card-content>
+      </ion-card>
+    </ion-list>
     <ion-list *ngSwitchCase="'text'">
       <ion-item no-padding>
         <ion-label floating>Text</ion-label>
@@ -58,24 +69,25 @@
       </ion-item>
       <button ion-button block (click)="sayText()" [disabled]=!speechText>Speak Now</button>
     </ion-list>
-
   </div>
 
+  <br>
   <hr />
-
+  <br>
   <button ion-button (click)="showFingerPrintDailog()">Show Finger Print</button>
 
   <button ion-button (click)="vibrate()">Vibrate Now</button>
 
-  <div *ngIf="results">
-    <p>
-      <strong>Text:</strong> {{results.text}}</p>
-    <p>
-      <strong>Format:</strong>{{results.format}}</p>
-    <p>
-      <strong>Cancelled:</strong> {{results.cancelled}}</p>
-  </div>
-
+  <ion-card *ngIf="barcodeResults">
+    <ion-card-content>
+      <p>
+        <strong>Text:</strong> {{barcodeResults.text}}</p>
+      <p>
+        <strong>Format:</strong>{{barcodeResults.format}}</p>
+      <p>
+        <strong>Cancelled:</strong> {{barcodeResults.cancelled}}</p>
+    </ion-card-content>
+  </ion-card>
   <ion-row>
     <button ion-button (click)="scanBarcode()">Scan</button>
     <button ion-button (click)="encodeData()">Encode</button>

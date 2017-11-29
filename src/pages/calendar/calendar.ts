@@ -24,11 +24,15 @@ export class CalendarPage {
   }; // these are the letiable used by the calendar.
 
   constructor(private nativeCal: Calendar, private modal: ModalController, private alertCtrl: AlertController) {
-    this.nativeCal.createCalendar('MyCalendar').then(
-      (msg) => { console.log(msg); },
-      (err) => { console.log(err); }
-    );
-    this.options = this.nativeCal.getCalendarOptions();
+    try {
+      this.nativeCal.createCalendar('MyCalendar').then(
+        (msg) => { console.log(msg); },
+        (err) => { console.log(err); }
+      );
+      this.options = this.nativeCal.getCalendarOptions();
+    } catch (e) {
+      console.log(e);
+    }
   }
 
   loadEvents(results) {
@@ -98,12 +102,8 @@ export class CalendarPage {
 
   init() {
     this.nativeCal.hasReadWritePermission().then(hasit => {
-      if (hasit) {
-        console.log('can add');
-      } else {
-        this.nativeCal.requestReadPermission().then(IsGranted => {
-
-        });
+      if (!hasit) {
+        this.nativeCal.requestReadPermission();
       }
     });
   }

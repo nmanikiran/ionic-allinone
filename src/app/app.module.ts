@@ -29,6 +29,7 @@ import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { ImageProvider } from '../providers/image/image';
 import { YtProvider } from '../providers/yt/yt';
 import { MyApp } from './app.component';
+import { ToastProvider } from '../providers/toast/toast';
 
 @NgModule({
   declarations: [
@@ -68,7 +69,8 @@ import { MyApp } from './app.component';
     AppMinimize,
     NativePageTransitions,
     ImageProvider,
-    PhotoViewer
+    PhotoViewer,
+    ToastProvider
   ]
 })
 export class AppModule { }

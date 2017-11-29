@@ -30,17 +30,17 @@
     </div>
   </div>
 
-  <div class="image-gallery" *ngIf="galleryType=='gallery'">
-    <ion-slides (ionSlideDidChange)="slideChanged()" centeredSlides="true">
+  <div *ngIf="galleryType=='gallery'">
+    <ion-slides class="image-gallery" (ionSlideDidChange)="slideChanged()" centeredSlides="true">
       <ion-slide *ngFor="let image of images" [style.background-image]="'url('+image.urls.regular+')'">
       </ion-slide>
     </ion-slides>
     <br>
     <hr>
 
-    <ion-slides class="image-slider" loop="true" slidesPerView="3" centeredSlides="true">
-      <ion-slide *ngFor="let image of images; let i = index" (click)="gotoSlide(i)" >
-        <img [src]="image.urls.regular" class="thumb-img" />
+    <ion-slides class="image-slider" loop="true" slidesPerView="3" (ionSlideDidChange)="slideChanged()" centeredSlides="true">
+      <ion-slide *ngFor="let image of images; let i = index" (click)="gotoSlide(i)">
+        <img [src]="image.urls.thumb" class="thumb-img" />
       </ion-slide>
 
     </ion-slides>

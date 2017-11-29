@@ -10,13 +10,8 @@
 <ion-content padding>
 
   <ion-segment [(ngModel)]="type">
-    <ion-segment-button value="signin">
-      Signin
-    </ion-segment-button>
-    <ion-segment-button value="signup">
-      Signup
-    </ion-segment-button>
-
+    <ion-segment-button value="signin"> Signin </ion-segment-button>
+    <ion-segment-button value="signup"> Signup </ion-segment-button>
   </ion-segment>
 
   <div [ngSwitch]="type">

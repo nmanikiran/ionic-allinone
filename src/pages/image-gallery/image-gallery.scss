@@ -4,9 +4,6 @@ page-image-gallery {
         background-size: cover;
     }
     .image-gallery {
-        height: calc(100vh -100px);
-    }
-    ion-slides {
         height: 300px;
         display: flex;
         justify-content: center;

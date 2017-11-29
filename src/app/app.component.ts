@@ -42,11 +42,9 @@ export class MyApp {
     this.pages = [
       { title: 'Youtube', pageName: 'YoutubePage', tabComponent: 'YoutubePage', index: 0, icon: 'home' },
       { title: 'Map', pageName: 'MapsPage', tabComponent: 'MapsPage', index: 1, icon: 'locate' },
-      { title: 'Speech to Text', pageName: 'SttPage', tabComponent: 'SttPage', index: 4, icon: 'mic' },
+      { title: 'Dialogs & Toast', pageName: 'DialogPage', tabComponent: 'DialogPage', index: 2, icon: 'flame' },
+      { title: 'Forms', pageName: 'FormFieldsPage', tabComponent: 'FormFieldsPage', index: 3, icon: 'list-box' },
       { title: 'Image Gallery', pageName: 'ImageGalleryPage', tabComponent: 'ImageGalleryPage', index: 5, icon: 'images' },
-      { title: 'Dialogs & Toast', pageName: 'DialogPage', tabComponent: 'DialogPage', index: 6, icon: 'flame' },
-      { title: 'Forms', pageName: 'FormFieldsPage', tabComponent: 'FormFieldsPage', index: 7, icon: 'list-box' },
-
       { title: 'Calendar', pageName: 'CalendarPage', tabComponent: 'CalendarPage', index: 8, icon: 'calendar' },
       { title: 'Native Controls', pageName: 'NativeControlsPage', tabComponent: 'NativeControlsPage', index: 19, icon: 'cog' },
       { title: 'About', pageName: 'AboutPage', tabComponent: 'AboutPage', index: 20, icon: 'information-circle' },
