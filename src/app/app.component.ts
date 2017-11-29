@@ -44,6 +44,7 @@ export class MyApp {
       { title: 'Map', pageName: 'MapsPage', tabComponent: 'MapsPage', index: 1, icon: 'locate' },
       { title: 'Dialogs & Toast', pageName: 'DialogPage', tabComponent: 'DialogPage', index: 2, icon: 'flame' },
       { title: 'Forms', pageName: 'FormFieldsPage', tabComponent: 'FormFieldsPage', index: 3, icon: 'list-box' },
+      { title: 'Camera', pageName: 'CameraPage', tabComponent: 'CameraPage', index: 4, icon: 'camera' },
       { title: 'Image Gallery', pageName: 'ImageGalleryPage', tabComponent: 'ImageGalleryPage', index: 5, icon: 'images' },
       { title: 'Calendar', pageName: 'CalendarPage', tabComponent: 'CalendarPage', index: 8, icon: 'calendar' },
       { title: 'Native Controls', pageName: 'NativeControlsPage', tabComponent: 'NativeControlsPage', index: 19, icon: 'cog' },

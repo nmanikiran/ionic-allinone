@@ -1,6 +1,7 @@
 import { ChangeDetectorRef, Component } from '@angular/core';
 import { Badge } from '@ionic-native/badge';
 import { BarcodeScanner, BarcodeScannerOptions } from '@ionic-native/barcode-scanner';
+import { BatteryStatus, BatteryStatusResponse } from '@ionic-native/battery-status';
 import { Brightness } from '@ionic-native/brightness';
 import { CallNumber } from '@ionic-native/call-number';
 import { FingerprintAIO, FingerprintOptions } from '@ionic-native/fingerprint-aio';
@@ -23,6 +24,8 @@ import { ToastProvider } from '../../providers/toast/toast';
   templateUrl: 'native-controls.html',
 })
 export class NativeControlsPage {
+  batteryListener: any;
+  battery: BatteryStatusResponse;
 
   brightnessValue: number = 80;
   screenSleep: boolean = false;
@@ -53,15 +56,19 @@ export class NativeControlsPage {
     private plt: Platform, private flashlight: Flashlight,
     private toast: ToastProvider, private sms: SMS,
     private tts: TextToSpeech,
+    private batteryStatus: BatteryStatus,
     private badge: Badge, public platform: Platform, public finger: FingerprintAIO,
     private speech: SpeechRecognition, private cd: ChangeDetectorRef) {
     this.type = 'call';
   }
 
   segmentChanged(e) {
-    console.log(e.value);
     if (e.value === 'speech') {
       this.initSpeech();
+    } else if (e.value === 'battery') {
+      this.getBattery();
+    } else if (this.batteryListener) {
+      this.batteryListener.unsubscribe();
     }
   }
 
@@ -207,6 +214,23 @@ export class NativeControlsPage {
     } catch (e) {
       console.log(e);
     }
+  }
+
+  getBattery() {
+
+    this.platform.ready().then(() => {
+      try {
+        this.batteryListener = this.batteryStatus.onChange().subscribe(
+          (status: BatteryStatusResponse) => {
+            this.battery = status;
+            console.log(status.level, status.isPlugged);
+          }
+        );
+      } catch (e) {
+        console.log(e);
+      }
+    });
+
   }
 
 

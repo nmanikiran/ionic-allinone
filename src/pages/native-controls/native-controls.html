@@ -22,6 +22,9 @@
     <ion-segment-button value="text">
       <ion-icon name="volume-up"></ion-icon>
     </ion-segment-button>
+    <ion-segment-button value="battery">
+      <ion-icon name="battery-charging"></ion-icon>
+    </ion-segment-button>
   </ion-segment>
 
   <div [ngSwitch]="type">
@@ -68,6 +71,15 @@
         <ion-textarea row="5" [(ngModel)]="speechText"></ion-textarea>
       </ion-item>
       <button ion-button block (click)="sayText()" [disabled]=!speechText>Speak Now</button>
+    </ion-list>
+    <ion-list *ngSwitchCase="'battery'" text-center>
+      <ion-icon name="battery-charging" large></ion-icon>
+      <ion-item>
+        <p>
+          <strong> level :</strong> {{battery.level}} </p>
+        <p>
+          <strong> Charging :</strong> {{battery.isPlugged}}</p>
+      </ion-item>
     </ion-list>
   </div>
 

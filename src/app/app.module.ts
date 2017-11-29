@@ -5,9 +5,11 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppMinimize } from '@ionic-native/app-minimize';
 import { Badge } from '@ionic-native/badge';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner';
+import { BatteryStatus } from '@ionic-native/battery-status';
 import { Brightness } from '@ionic-native/brightness';
 import { Calendar } from '@ionic-native/calendar';
 import { CallNumber } from '@ionic-native/call-number';
+import { Camera } from '@ionic-native/camera';
 import { FingerprintAIO } from '@ionic-native/fingerprint-aio';
 import { Flashlight } from '@ionic-native/flashlight';
 import { Geolocation } from '@ionic-native/geolocation';
@@ -27,9 +29,9 @@ import { YoutubeVideoPlayer } from '@ionic-native/youtube-video-player';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 
 import { ImageProvider } from '../providers/image/image';
+import { ToastProvider } from '../providers/toast/toast';
 import { YtProvider } from '../providers/yt/yt';
 import { MyApp } from './app.component';
-import { ToastProvider } from '../providers/toast/toast';
 
 @NgModule({
   declarations: [
@@ -70,7 +72,10 @@ import { ToastProvider } from '../providers/toast/toast';
     NativePageTransitions,
     ImageProvider,
     PhotoViewer,
-    ToastProvider
+    ToastProvider,
+    Camera,
+    BatteryStatus
+
   ]
 })
 export class AppModule { }
