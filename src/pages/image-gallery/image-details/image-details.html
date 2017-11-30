@@ -3,10 +3,12 @@
   <ion-navbar transparent>
     <ion-title></ion-title>
     <ion-buttons end>
+      <button ion-button icon-only (click)="sharePhoto()">
+        <ion-icon name="share-alt"></ion-icon>
+      </button>
       <button ion-button icon-only (click)="download()">
         <ion-icon name="download"></ion-icon>
       </button>
-
       <button ion-button icon-only (click)="fullView()">
         <ion-icon name="expand"></ion-icon>
       </button>

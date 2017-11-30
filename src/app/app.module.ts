@@ -19,6 +19,7 @@ import { NativePageTransitions } from '@ionic-native/native-page-transitions';
 import { Network } from '@ionic-native/network';
 import { PhotoViewer } from '@ionic-native/photo-viewer';
 import { SMS } from '@ionic-native/sms';
+import { SocialSharing } from '@ionic-native/social-sharing';
 import { SpeechRecognition } from '@ionic-native/speech-recognition';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
@@ -74,7 +75,8 @@ import { MyApp } from './app.component';
     PhotoViewer,
     ToastProvider,
     Camera,
-    BatteryStatus
+    BatteryStatus,
+    SocialSharing
 
   ]
 })

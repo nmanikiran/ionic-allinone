@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, AlertController, AlertOptions } from 'ionic-angular';
 import { PhotoViewer } from '@ionic-native/photo-viewer';
+import { SocialSharing } from '@ionic-native/social-sharing';
+
+import { AlertController, AlertOptions, IonicPage, NavController, NavParams } from 'ionic-angular';
 
 @IonicPage()
 @Component({
@@ -12,7 +14,9 @@ export class ImageDetailsPage {
   photo: any;
 
   constructor(public navCtrl: NavController,
-    public navParams: NavParams, private photoViewer: PhotoViewer, private alert: AlertController) {
+    private socialSharing: SocialSharing,
+    public navParams: NavParams, private photoViewer: PhotoViewer,
+    private alert: AlertController) {
 
     if (this.navParams.data && this.navParams.data.image) {
       this.photo = this.navParams.data.image;
@@ -35,12 +39,17 @@ export class ImageDetailsPage {
         }
       ]
     }
-
     this.alert.create(options).present();
   }
 
-  ionViewDidLoad() {
-    // console.log('ionViewDidLoad ImageDetailsPage');
+  sharePhoto() {
+   
+    try {
+      this.socialSharing.share((this.photo.description || this.photo.user.bio), 'Check this photo', this.photo.urls.thumb, this.photo.links.html).then(() => {
+      }).catch(e => { console.log(e); });
+    } catch (e) {
+      console.log(e);
+    }
   }
 
 }

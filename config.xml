@@ -111,4 +111,5 @@
     <plugin name="com-sarriaroman-photoviewer" spec="^1.1.11" />
     <plugin name="cordova-plugin-camera" spec="^3.0.0" />
     <plugin name="cordova-plugin-battery-status" spec="^1.2.5" />
+    <allow-navigation href="http://10.0.0.2:8101" />
 </widget>
